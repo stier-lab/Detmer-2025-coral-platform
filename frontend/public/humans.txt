@@ -1,0 +1,35 @@
+/* TEAM */
+
+Principal Investigator: Adrian Stier
+Site: https://oceanrecoveries.com
+Twitter: @AdrianStier
+Location: Santa Barbara, California
+
+Lead Developer: Raine Detmer
+Role: Graduate Researcher
+Location: Santa Barbara, California
+
+/* THANKS */
+
+National Science Foundation (NSF OCE-2048589)
+NOAA Coral Reef Conservation Program
+UC Santa Barbara EEMB Department
+All the coral restoration practitioners sharing their data
+
+/* SITE */
+
+Last update: 2025/01
+Language: English
+Standards: HTML5, CSS3, ES6+
+Components: React, TypeScript, D3.js, Tailwind CSS
+Backend: R Plumber API
+Software: Vite, React Query
+
+/* CORAL FACTS */
+
+Acropora palmata (Elkhorn Coral):
+- Once the dominant reef-builder in the Caribbean
+- Listed as Threatened under the U.S. Endangered Species Act
+- Can grow up to 2 meters wide
+- Provides critical habitat for fish and invertebrates
+- This database exists to help it recover 🪸

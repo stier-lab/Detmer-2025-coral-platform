@@ -1,0 +1,42 @@
+# Render Blueprint for Coral Demographics Platform
+# Deploy with: Connect repo to Render, then use "New Blueprint Instance"
+# https://render.com/docs/blueprint-spec
+
+services:
+  # R Plumber API Backend
+  - type: web
+    name: coral-demographics-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    region: oregon
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+
+  # React Frontend (Static Site)
+  - type: web
+    name: coral-demographics
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=31536000
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: coral-demographics-api
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL

@@ -1,0 +1,33 @@
+# R Plumber API Dockerfile for local development
+# Optimized for faster rebuilds and hot reloading
+FROM rocker/r-ver:4.3.2
+
+# Install system dependencies for R packages
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libsodium-dev \
+    libuv1-dev \
+    zlib1g-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install R packages
+RUN R -e "install.packages(c('plumber', 'dplyr', 'jsonlite', 'readr', 'tidyr', 'purrr'), repos='https://cran.rstudio.com/')"
+
+# Set working directory
+WORKDIR /app
+
+# Copy backend code
+COPY . /app/
+
+# Create data directories (will be mounted)
+RUN mkdir -p /app/standardized_data \
+    /app/analysis/output
+
+# Expose port
+EXPOSE 8000
+
+# Run the API
+CMD ["Rscript", "run.R"]
